@@ -8,27 +8,43 @@ const gameOverScreen = document.querySelector('.game-over-screen');
 const restartButton = document.querySelector('.restart-button');
 
 // 新增音效和最高分读取
-const soundJump = new Audio('jump.wav');
-const soundScore = new Audio('score.wav');
-const soundHit = new Audio('hit.wav');
+let soundJump, soundScore, soundHit, backgroundMusic;
+let audioAvailable = false;
+
+try {
+    soundJump = new Audio('jump.wav');
+    soundScore = new Audio('score.wav');
+    soundHit = new Audio('hit.wav');
+    backgroundMusic = new Audio('bg.mp3');
+    
+    // 背景音乐设置
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = 0.5;
+    
+    audioAvailable = true;
+} catch (e) {
+    console.warn('音频文件加载失败，游戏将在静音模式下运行');
+    audioAvailable = false;
+}
+
 let highScore = localStorage.getItem('flappyHighScore') ? parseInt(localStorage.getItem('flappyHighScore')) : 0;
 
 // 确保音效文件已加载或报告错误
-[soundJump, soundScore, soundHit].forEach(sound => {
-    sound.addEventListener('canplaythrough', () => console.log(sound.src + ' 加载成功'));
-    sound.addEventListener('error', () => console.error(sound.src + ' 加载失败，请检查文件是否存在于 flappybird 目录')); 
-});
+if (audioAvailable) {
+    [soundJump, soundScore, soundHit].forEach(sound => {
+        sound.addEventListener('canplaythrough', () => console.log(sound.src + ' 加载成功'));
+        sound.addEventListener('error', () => console.warn(sound.src + ' 加载失败，将在静音模式下运行')); 
+    });
+    
+    backgroundMusic.addEventListener('canplaythrough', () => console.log('背景音乐加载成功'));
+    backgroundMusic.addEventListener('error', () => console.warn('背景音乐加载失败'));
+}
 
 // 静音状态读取
 let isMuted = localStorage.getItem('flappyMuted') === 'true';
-
-// 背景音乐
-const backgroundMusic = new Audio('bg.mp3');
-backgroundMusic.loop = true;
-backgroundMusic.volume = 0.5;
-backgroundMusic.muted = isMuted;
-backgroundMusic.addEventListener('canplaythrough', () => console.log('背景音乐加载成功'));
-backgroundMusic.addEventListener('error', () => console.error('背景音乐加载失败，请检查 bg.mp3 文件'));
+if (audioAvailable && backgroundMusic) {
+    backgroundMusic.muted = isMuted;
+}
 
 // 设置Canvas尺寸
 canvas.width = 320;
@@ -113,10 +129,11 @@ const bird = {
             gameOver();
         }
     },
-    
-    // 跳跃
+      // 跳跃
     jump: function() {
-        soundJump.play();
+        if (audioAvailable && soundJump && !isMuted) {
+            soundJump.play().catch(() => {});
+        }
         this.velocity = this.jumpStrength;
     },
     
@@ -168,11 +185,12 @@ class Pipe {
         ) {
             gameOver();
         }
-        
-        // 计分
+          // 计分
         if (!this.scored && this.x + this.width < bird.x) {
             game.score++;
-            soundScore.play();
+            if (audioAvailable && soundScore && !isMuted) {
+                soundScore.play().catch(() => {});
+            }
             scoreDisplay.textContent = game.score;
             this.scored = true;
         }
