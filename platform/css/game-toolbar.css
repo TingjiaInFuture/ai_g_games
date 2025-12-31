@@ -1,0 +1,54 @@
+#platform-toolbar-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+    font-family: 'Poppins', sans-serif;
+}
+
+.platform-home-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    color: #333;
+    font-size: 20px;
+    border: 2px solid #fff;
+}
+
+.platform-home-btn:hover {
+    background-color: #f1c40f;
+    transform: scale(1.1);
+    width: 120px;
+    border-radius: 20px;
+    justify-content: flex-start;
+    padding-left: 15px;
+}
+
+.platform-home-btn span {
+    display: none;
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.platform-home-btn:hover span {
+    display: inline;
+}
+
+/* Dark mode support if the game supports it or if we want to force it */
+@media (prefers-color-scheme: dark) {
+    .platform-home-btn {
+        background-color: rgba(50, 50, 50, 0.8);
+        color: #fff;
+        border-color: #444;
+    }
+}

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线游戏中心</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-gradient-light: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-gradient-dark: linear-gradient(135deg, #1e1e1e 0%, #3f3f3f 100%);
+            --bg-speed: 20s;
+            --card-hover-deg: 10deg;
+            --card-radius: 15px;
+            --shadow-light: rgba(255,255,255,0.1);
+            --shadow-dark: rgba(0,0,0,0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff6b6b 100%);
+            background-size: 200% 200%;
+            animation: gradient-anim var(--bg-speed) ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        @keyframes gradient-anim {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body[data-theme="dark"] {
+            background-image: var(--bg-gradient-dark);
+            color: #f0f0f0;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.8;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            perspective: 1200px;
+        }
+        
+        .game-card {
+            background-color: #fff;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: 8px 8px 15px var(--shadow-dark), -8px -8px 15px var(--shadow-light);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-15px) rotateY(var(--card-hover-deg));
+            box-shadow: 12px 12px 22px var(--shadow-dark), -12px -12px 22px var(--shadow-light);
+        }
+        
+        .game-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .flappy-bird-image {
+            background-color: #70c5ce;
+        }
+        
+        .flappy-bird-image::before {
+            content: "";
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: #FFD700;
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .flappy-bird-image::after {
+            content: "";
+            position: absolute;
+            right: 30%;
+            height: 200px;
+            width: 50px;
+            background-color: #3CB371;
+            box-shadow: -80px 0 0 #3CB371, 80px 0 0 #3CB371;
+        }
+        
+        .poker-image {
+            background-color: #277a32;
+        }
+        
+        .poker-image::before {
+            content: "♠ ♥";
+            font-size: 64px;
+            color: white;
+        }
+        
+        .poker-image::after {
+            content: "♦ ♣";
+            font-size: 64px;
+            color: white;
+            position: absolute;
+            top: 60%;
+        }
+
+        .snake-image {
+            background-color: #90EE90; /* Light green background */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .snake-image::before {
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-color: #FF4500; /* OrangeRed for food */
+            border-radius: 50%;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .snake-image::after {
+            content: "";
+            width: 80px;
+            height: 20px;
+            background-color: #4CAF50; /* Green for snake */
+            border-radius: 10px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .firewater-image {
+            background: linear-gradient(to right, #ff6b6b, #4ecdc4); /* Red to Blue gradient */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .firewater-image::before {
+            content: "🔥"; /* Fire emoji */
+            font-size: 64px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .firewater-image::after {
+            content: "💧"; /* Water droplet emoji */
+            font-size: 64px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* 新增拳皇游戏卡片图片样式 */
+        .kingoffighters-image {
+            background-color: #d32f2f; /* Red background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .kingoffighters-image::before {
+            content: "🥊"; /* Boxing glove emoji */
+            font-size: 64px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .game-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .game-info h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .game-info p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .play-button {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: #f1c40f;
+            color: #333;
+            text-decoration: none;
+            border-radius: var(--card-radius);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: inset 0 0 8px var(--shadow-dark), 0 5px 0 #e67e22;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .play-button:hover {
+            transform: scale(1.05);
+            background-color: #f39c12;
+            box-shadow: inset 0 0 12px var(--shadow-dark), 0 8px 0 #e67e22;
+        }
+        
+        .play-button:active {
+            transform: translateY(3px) scale(1);
+            box-shadow: inset 0 0 4px var(--shadow-dark), 0 2px 0 #e67e22;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 36px;
+            }
+            
+            .game-card {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+        }
+
+        .header .search-input {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            width: 300px;
+            max-width: 90%;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>在线游戏中心</h1>
+            <button id="theme-toggle" class="play-button" style="margin-left:20px;">切换主题</button>
+            <input type="text" id="search-input" class="search-input" placeholder="🔍 搜索游戏...">
+            <p>选择您想玩的游戏</p>
+        </div>
+        
+        <div class="games-grid">
+            <div class="game-card">
+                <div class="game-image flappy-bird-image"></div>
+                <div class="game-info">
+                    <h2>Flappy Bird</h2>
+                    <p>控制小鸟飞行，穿过管道之间的缝隙，获得高分！经典的休闲游戏体验。</p>
+                    <a href="flappybird/index.html" class="play-button">开始游戏</a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-image poker-image"></div>
+                <div class="game-info">
+                    <h2>德州扑克</h2>
+                    <p>体验经典的德州扑克游戏，与电脑AI对战，展示您的策略和运气！</p>
+                    <a href="poker/index.html" class="play-button">开始游戏</a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-image snake-image"></div>
+                <div class="game-info">
+                    <h2>贪吃蛇</h2>
+                    <p>控制小蛇吃食物，变得越来越长！经典怀旧游戏，挑战你的反应速度。</p>
+                    <a href="snake/index.html" class="play-button">开始游戏</a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-image firewater-image"></div>
+                <div class="game-info">
+                    <h2>森林冰火人</h2>
+                    <p>控制火娃和水娃，协作闯关，收集宝石，到达终点。经典的双人合作平台游戏。</p>
+                    <a href="firewater/index.html" class="play-button">开始游戏</a>
+                </div>
+            </div>
+
+            <!-- 新增拳皇游戏卡片 -->
+            <div class="game-card">
+                <div class="game-image kingoffighters-image"></div>
+                <div class="game-info">
+                    <h2>拳皇</h2>
+                    <p>选择你最喜欢的格斗家，进行激烈的对战！经典的街机格斗游戏。</p>
+                    <a href="kingoffighters/index.html" class="play-button">开始游戏</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2025 在线游戏中心 | 版权所有</p>
+        </div>
+    </div>
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        toggleBtn.addEventListener('click', () => {
+            const current = document.body.getAttribute('data-theme');
+            if (current === 'dark') {
+                document.body.removeAttribute('data-theme');
+                localStorage.removeItem('theme');
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+            }
+        });
+        // 游戏搜索过滤
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', () => {
+            const keyword = searchInput.value.trim().toLowerCase();
+            document.querySelectorAll('.game-card').forEach(card => {
+                const title = card.querySelector('h2').textContent.toLowerCase();
+                card.style.display = title.includes(keyword) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
