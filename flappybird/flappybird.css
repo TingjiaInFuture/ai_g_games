@@ -123,25 +123,61 @@ body {
     opacity: 0.8;
 }
 
+/* 速度选择样式 */
+.speed-selection {
+    margin: 15px 0;
+}
+
+.speed-selection p {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.speed-button {
+    padding: 8px 18px;
+    margin: 0 5px;
+    font-size: 14px;
+    background-color: #95a5a6;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.speed-button:hover {
+    background-color: #7f8c8d;
+    transform: scale(1.05);
+}
+
+.speed-button.active, .speed-button:focus {
+    background-color: #27ae60;
+    box-shadow: 0 0 10px rgba(39, 174, 96, 0.5);
+}
+
 /* 控制按钮样式 */
 .controls {
     position: absolute;
     top: 10px;
     left: 10px;
     z-index: 11;
+    display: flex;
+    gap: 5px;
 }
 .controls button {
-    margin-right: 5px;
     padding: 5px 12px;
     font-size: 14px;
     background-color: rgba(255,255,255,0.8);
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: all 0.2s;
 }
 .controls button:hover {
     background-color: rgba(255,255,255,1);
+    transform: scale(1.05);
 }
+
 /* 背景层：翻转和动画 */
 @keyframes cloud-move {
     from { transform: translateX(0); }

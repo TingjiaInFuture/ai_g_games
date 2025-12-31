@@ -10,18 +10,33 @@
     <div class="game-container">
         <h1>贪吃蛇</h1>
         <div class="score-container">
-            得分: <span id="score">0</span>
+            得分: <span id="score">0</span> | 最高分: <span id="high-score">0</span>
+        </div>
+        <div class="controls-bar">
+            <button id="pause-button">暂停</button>
+            <button id="mute-button">🔊</button>
         </div>
         <canvas id="game-canvas" width="400" height="400"></canvas>
         <div id="game-over" class="game-message" style="display: none;">
             <h2>游戏结束!</h2>
             <p>你的得分: <span id="final-score">0</span></p>
+            <p>最高分: <span id="final-high-score">0</span></p>
             <button id="restart-button">重新开始</button>
         </div>
          <div id="start-screen" class="game-message">
             <h2>贪吃蛇</h2>
             <p>使用方向键或 WASD 控制方向</p>
+            <div class="speed-selection">
+                <p>选择速度:</p>
+                <button class="speed-btn" data-speed="slow">慢</button>
+                <button class="speed-btn active" data-speed="medium">中</button>
+                <button class="speed-btn" data-speed="fast">快</button>
+            </div>
             <button id="start-button">开始游戏</button>
+        </div>
+        <div id="pause-screen" class="game-message" style="display: none;">
+            <h2>游戏暂停</h2>
+            <button id="resume-button">继续游戏</button>
         </div>
     </div>
     <script src="game.js"></script>

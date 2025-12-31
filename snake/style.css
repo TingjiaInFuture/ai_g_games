@@ -29,6 +29,18 @@ h1 {
     color: #555;
 }
 
+.controls-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.controls-bar button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
 #game-canvas {
     border: 5px solid #333;
     background-color: #f9f9f9;
@@ -42,12 +54,13 @@ h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 15px; /* Match container */
+    z-index: 10;
 }
 
 .game-message h2 {
@@ -55,13 +68,42 @@ h1 {
     color: #e74c3c;
     margin-bottom: 15px;
 }
-#start-screen h2 {
+#start-screen h2, #pause-screen h2 {
     color: #4CAF50;
 }
 
 .game-message p {
     font-size: 1.2em;
     margin-bottom: 20px;
+}
+
+.speed-selection {
+    margin: 15px 0;
+}
+
+.speed-selection p {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.speed-btn {
+    padding: 8px 20px;
+    margin: 0 5px;
+    font-size: 1em;
+    background-color: #95a5a6;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.speed-btn.active {
+    background-color: #27ae60;
+    transform: scale(1.1);
+}
+
+.speed-btn:hover {
+    background-color: #7f8c8d;
 }
 
 button {
@@ -95,4 +137,24 @@ button:active {
 }
 #restart-button:active {
      box-shadow: 0 2px #c0392b;
+}
+
+#pause-button, #resume-button {
+    background-color: #f39c12;
+    box-shadow: 0 4px #d68910;
+}
+
+#pause-button:hover, #resume-button:hover {
+    background-color: #d68910;
+}
+
+#mute-button {
+    background-color: #9b59b6;
+    box-shadow: 0 4px #7d3c98;
+    font-size: 1.2em;
+    padding: 8px 12px;
+}
+
+#mute-button:hover {
+    background-color: #7d3c98;
 }

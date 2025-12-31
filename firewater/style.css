@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #1a1a2e;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,12 +18,14 @@ body {
     position: relative;
     width: 800px;
     height: 600px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 canvas {
     display: block;
-    background-color: #2a2a3a;
+    background: linear-gradient(180deg, #2a2a3a 0%, #1a1a2e 100%);
 }
 
 .screen {
@@ -43,13 +45,24 @@ canvas {
 }
 
 h1 {
-    font-size: 36px;
+    font-size: 42px;
     margin-bottom: 20px;
-    text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 0 0 20px rgba(0, 0, 255, 0.7);
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.7), 0 0 25px rgba(0, 0, 255, 0.7);
     background: linear-gradient(to right, #ff416c, #4286f4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 20px;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 0, 0, 0.5), 0 0 20px rgba(0, 0, 255, 0.5);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 30px rgba(0, 0, 255, 0.8);
+    }
 }
 
 h2 {
@@ -59,73 +72,106 @@ h2 {
 }
 
 button, .menu-button {
-    background: linear-gradient(to right, #ff416c, #4286f4);
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 50%, #4286f4 100%);
+    background-size: 200% 200%;
     border: none;
-    padding: 12px 24px;
+    padding: 14px 28px;
     margin: 10px;
     color: white;
     font-size: 16px;
-    border-radius: 5px;
+    font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
     display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
 }
 
 button:hover, .menu-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 25px rgba(255, 65, 108, 0.5);
+    background-position: 100% 0;
+}
+
+button:active, .menu-button:active {
+    transform: translateY(0);
 }
 
 .instructions {
     margin: 20px 0;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 15px;
     max-width: 600px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .character-controls {
     display: flex;
     justify-content: space-around;
     margin: 20px 0;
+    gap: 20px;
 }
 
 .character {
-    padding: 10px;
-    border-radius: 10px;
+    padding: 15px;
+    border-radius: 15px;
     width: 45%;
+    transition: transform 0.3s ease;
+}
+
+.character:hover {
+    transform: scale(1.02);
 }
 
 .character.fire {
-    background-color: rgba(255, 65, 108, 0.2);
-    border: 1px solid #ff416c;
+    background: linear-gradient(135deg, rgba(255, 65, 108, 0.3) 0%, rgba(255, 75, 43, 0.2) 100%);
+    border: 2px solid #ff416c;
+    box-shadow: 0 0 15px rgba(255, 65, 108, 0.3);
 }
 
 .character.water {
-    background-color: rgba(66, 134, 244, 0.2);
-    border: 1px solid #4286f4;
+    background: linear-gradient(135deg, rgba(66, 134, 244, 0.3) 0%, rgba(0, 150, 255, 0.2) 100%);
+    border: 2px solid #4286f4;
+    box-shadow: 0 0 15px rgba(66, 134, 244, 0.3);
 }
 
 .avatar {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     margin: 0 auto 10px;
     border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 .fire .avatar {
-    background-color: #ff416c;
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+    animation: fire-pulse 1.5s ease-in-out infinite;
 }
 
 .water .avatar {
-    background-color: #4286f4;
+    background: linear-gradient(135deg, #4286f4 0%, #0096ff 100%);
+    animation: water-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes fire-pulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(255, 65, 108, 0.5); }
+    50% { box-shadow: 0 0 25px rgba(255, 65, 108, 0.8); }
+}
+
+@keyframes water-pulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(66, 134, 244, 0.5); }
+    50% { box-shadow: 0 0 25px rgba(66, 134, 244, 0.8); }
 }
 
 .tip {
     font-style: italic;
     opacity: 0.8;
     margin-top: 15px;
+    color: #f1c40f;
 }
 
 .level-grid {
@@ -142,12 +188,18 @@ button:hover, .menu-button:hover {
     justify-content: center;
     align-items: center;
     font-size: 24px;
-    border-radius: 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.level-button:not(.locked):hover {
+    transform: scale(1.1);
 }
 
 .level-button.locked {
-    background: #666;
+    background: #444;
     cursor: not-allowed;
+    opacity: 0.6;
 }
 
 .hud {
@@ -155,25 +207,36 @@ button:hover, .menu-button:hover {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 10px;
+    padding: 12px 15px;
     display: flex;
     justify-content: space-between;
-    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
     color: white;
     z-index: 10;
 }
 
 .hud button {
-    padding: 5px 10px;
+    padding: 6px 12px;
     margin: 0;
-    font-size: 14px;
+    font-size: 12px;
+}
+
+.level-info, .gem-counter {
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+}
+
+.gem-counter {
+    color: #f1c40f;
 }
 
 .level-stats {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 15px;
-    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    padding: 20px;
+    border-radius: 15px;
     margin: 20px 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* 默认隐藏所有屏幕，除了开始屏幕 */
